@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="priv.backend.mapper.StockInMapper">
+    <!--SQL-->
+    <sql id="getAllStockInSql">
+        select s.id            as id,
+               s.code          as code,
+               c.id            as client_id,
+               c.name          as client_name,
+               m.id            as merchandise_id,
+               m.name          as merchandise_name,
+               s.amount        as amount,
+               s.price         as price,
+               s.money         as money,
+               s.stock_in_date as stock_in_date,
+               e.id            as employee_id,
+               e.name          as employee_name
+        from stock_in s
+                 left join client c on c.id = s.client_id
+                 left join merchandise m on m.id = s.merchandise_id
+                 left join employee e on e.id = s.employee_id
+        where 1 = 1
+    </sql>
+    <!--SQL-->
+
+    <!--Map-->
+    <resultMap id="getAllStockInMap" type="RespStockInVO">
+        <id property="id" column="id"/>
+        <result property="code" column="code"/>
+        <result property="amount" column="amount"/>
+        <result property="price" column="price"/>
+        <result property="money" column="money"/>
+        <result property="stockInDate" column="stock_in_date"/>
+        <association property="client" javaType="RespClientVO">
+            <id property="clientId" column="client_id"/>
+            <result property="clientName" column="client_name"/>
+        </association>
+        <association property="merchandise" javaType="RespMerchandiseVO">
+            <id property="merchandiseId" column="merchandise_id"/>
+            <result property="merchandiseName" column="merchandise_name"/>
+        </association>
+        <association property="employee" javaType="RespEmployeeVO">
+            <id property="employeeId" column="employee_id"/>
+            <result property="employeeName" column="employee_name"/>
+        </association>
+    </resultMap>
+    <!--Map-->
+
+    <!--Select-->
+    <select id="getAllStockIn" resultMap="getAllStockInMap">
+        <include refid="getAllStockInSql"/>
+    </select>
+    <select id="queryStockIn" parameterType="StockIn" resultMap="getAllStockInMap">
+        <include refid="getAllStockInSql"/>
+        <if test="code != null">
+            and s.code = #{code}
+        </if>
+        <if test="clientId != null">
+            and s.client_id = #{clientId}
+        </if>
+        <if test="merchandiseId != null">
+            and s.merchandise_id = #{merchandiseId}
+        </if>
+        <if test="stockInDate != null">
+            and s.stock_in_date = #{stockInDate}
+        </if>
+        <if test="employeeId != null">
+            and s.employee_id = #{employeeId}
+        </if>
+    </select>
+    <!--Select-->
+
+    <!--Update-->
+
+    <!--Update-->
+
+    <!--Insert-->
+
+    <!--Insert-->
+
+    <!--Delete-->
+
+    <!--Delete-->
+
+</mapper>

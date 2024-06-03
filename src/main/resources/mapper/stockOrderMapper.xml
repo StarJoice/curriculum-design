@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="priv.backend.mapper.StockOrderMapper">
+    <!--SQL-->
+
+    <!--SQL-->
+
+    <!--Map-->
+    <resultMap id="getAllStockOrderMap" type="RespStockOrderVO">
+        <id property="id" column="id"/>
+        <result property="code" column="code"/>
+        <result property="orderedQuantity" column="ordered_quantity"/>
+        <result property="orderTime" column="order_time"/>
+        <association property="client" javaType="RespClientVO">
+            <id property="clientId" column="client_id"/>
+            <result property="clientName" column="client_name"/>
+        </association>
+        <association property="merchandise" javaType="RespMerchandiseVO">
+            <id property="merchandiseId" column="merchandise_id"/>
+            <result property="merchandiseName" column="merchandise_name"/>
+        </association>
+        <association property="employee" javaType="RespEmployeeVO">
+            <id property="employeeId" column="employee_id"/>
+            <result property="employeeName" column="employee_name"/>
+        </association>
+    </resultMap>
+    <!--Map-->
+
+    <!--Select-->
+    <select id="getAllStockOrder" resultMap="getAllStockOrderMap">
+        select s.id               as id,
+               s.code             as code,
+               c.id               as client_id,
+               c.name             as client_name,
+               m.id               as merchandise_id,
+               m.name             as merchandise_name,
+               s.ordered_quantity as ordered_quantity,
+               s.order_time       as order_time,
+               e.id               as employee_id,
+               e.name             as employee_name
+        from stock_order s
+                 left join client c on c.id = s.client_id
+                 left join merchandise m on m.id = s.merchandise_id
+                 left join employee e on e.id = s.handle_operator_id
+
+    </select>
+    <select id="queryStockOrder" resultMap="getAllStockOrderMap" parameterType="StockOrder">
+        select s.id as id,
+        s.code as code,
+        c.id as client_id,
+        c.name as client_name,
+        m.id as merchandise_id,
+        m.name as merchandise_name,
+        s.ordered_quantity as ordered_quantity,
+        s.order_time as order_time,
+        e.id as employee_id,
+        e.name as employee_name
+        from stock_order s
+        left join client c on c.id = s.client_id
+        left join merchandise m on m.id = s.merchandise_id
+        left join employee e on e.id = s.handle_operator_id
+        where 1=1
+        <if test="code != null">
+            and s.code = #{code}
+        </if>
+        <if test="clientId != null">
+            and s.client_id = #{clientId}
+        </if>
+        <if test="merchandiseId != null">
+            and s.merchandise_id = #{merchandiseId}
+        </if>
+        <if test="orderTime != null">
+            and s.order_time = #{orderTime}
+        </if>
+        <if test="handleOperatorId != null">
+            and s.handle_operator_id = #{handleOperatorId}
+        </if>
+    </select>
+    <!--Select-->
+
+    <!--Update-->
+
+    <!--Update-->
+
+    <!--Insert-->
+
+    <!--Insert-->
+
+    <!--Delete-->
+
+    <!--Delete-->
+
+</mapper>
