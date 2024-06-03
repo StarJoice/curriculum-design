@@ -11,13 +11,13 @@
     <groupId>priv</groupId>
     <artifactId>backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>backend</name>c
+    <name>backend</name>
     <description>backend</description>
     <properties>
         <java.version>17</java.version>
         <fastjson2.version>2.0.25</fastjson2.version>
         <mybatis.version>3.0.3</mybatis.version>
-<!--        <spring-security.version>6.3.0</spring-security.version>-->
+        <!-- <spring-security.version>6.3.0</spring-security.version> -->
     </properties>
     <dependencies>
         <dependency>
@@ -37,7 +37,7 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>${mybatis.version}</version>
         </dependency>
-        <!--        mybatis-plus-->
+        <!-- mybatis-plus -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
@@ -75,18 +75,19 @@
             <version>3.0.3</version>
             <scope>test</scope>
         </dependency>
-        <!--        mybatis-plus 分页插件-->
+        <!-- mybatis-plus 分页插件 -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-extension</artifactId>
             <version>3.5.5</version>
         </dependency>
-        <!--        加密模块-->
-        <!--<dependency>
+        <!-- 加密模块 -->
+        <!--
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>-->
-
+        </dependency>
+        -->
     </dependencies>
 
     <build>
